@@ -1,0 +1,215 @@
+class Stock:
+    def __init__(self, name, price, dividend): #definition of the initialization method. It tells which attributes the stocks will have. 
+        self.name = name #the object of the class will have its own name, price, dividend. 
+        self.price = price
+        self.dividend = dividend
+    
+    def yield_dividend(self): #creation of the yield_dividend method
+        return self.dividend / self.price
+
+apple_stock = Stock('Apple', 150, 0.82) #creation of a class object (stock of apple) with its attributes
+print(apple_stock.yield_dividend()) #the code use the yield_dividend method to print the yield dividend of the apple's stock. 
+
+#exercise 2
+
+class Portfolio:
+    def __init__(self):
+        self.instruments = []  # Initialize an empty list to store the instruments
+
+    def add_instrument(self, name, price):
+        # Create a dictionary to represent the instrument with name and current price
+        instrument = {"name": name, "price": price}
+        self.instruments.append(instrument)  # Add the instrument to the portfolio
+
+    def total_value(self):
+        total = 0
+        for instrument in self.instruments:
+            total += instrument["price"]  # Sum the current prices of all instruments
+        return total
+
+# Usage example:
+my_portfolio = Portfolio() #we create our object of the portfolio class. At this time it is empty
+
+# Adding financial instruments to the portfolio
+my_portfolio.add_instrument("Apple", 150)
+my_portfolio.add_instrument("Microsoft", 300)
+my_portfolio.add_instrument("Bonds", 1000)
+
+# Calculating and printing the total value of the portfolio
+total_value = my_portfolio.total_value()
+print("Total Portfolio Value:", total_value)
+
+
+#exercise 3
+
+class CurrencyConverter:
+    def __init__(self):
+        # Initialize a dictionary to hold conversion rates (currency pairs)
+        self.conversion_rates = {}
+
+    def add_rate(self, source_currency, target_currency, rate):
+        # Add or update a conversion rate to the dictionary
+        self.conversion_rates[(source_currency, target_currency)] = rate
+
+    def convert(self, amount, source_currency, target_currency):
+        # Check if the conversion rate is available
+        if (source_currency, target_currency) in self.conversion_rates:
+            rate = self.conversion_rates[(source_currency, target_currency)]
+            converted_amount = amount * rate
+            return converted_amount
+        else:
+            return "Conversion rate not found"
+
+# Usage example:
+converter = CurrencyConverter()
+
+# Adding conversion rates for various currency pairs
+converter.add_rate("USD", "EUR", 0.85)
+converter.add_rate("EUR", "GBP", 0.90)
+converter.add_rate("USD", "JPY", 110.0)
+
+# Convert 100 USD to EUR
+usd_to_eur = converter.convert(100, "USD", "EUR")
+print("100 USD in EUR:", usd_to_eur)
+
+# Convert 50 EUR to GBP
+eur_to_gbp = converter.convert(50, "EUR", "GBP")
+print("50 EUR in GBP:", eur_to_gbp)
+
+# Convert 500 USD to JPY
+usd_to_jpy = converter.convert(500, "USD", "JPY")
+print("500 USD in JPY:", usd_to_jpy)
+
+
+#NUMPY exercises
+
+#exercise 1
+
+import numpy as np
+np.random.seed(0)  # For reproducibility
+daily_returns = np.random.normal(0.001, 0.02, 1000)
+stock_prices = [100]
+
+for r in daily_returns:
+    stock_prices.append(stock_prices[-1] * (1 + r))
+
+print(stock_prices[-1])
+
+
+#exercise 2
+
+# Standard deviations of assets
+sigma1 = 0.1
+sigma2 = 0.2
+
+# Correlation coefficient
+rho12 = 0.5
+
+# Weights of assets in the portfolio
+w1 = 0.6
+w2 = 0.4
+
+# Calculate portfolio variance using the formula
+portfolio_variance = (w1**2 * sigma1**2) + (w2**2 * sigma2**2) + (2 * w1 * w2 * sigma1 * sigma2 * rho12)
+
+# Print the calculated variance
+print("Portfolio Variance:", portfolio_variance)
+
+
+#exercise 3
+
+import numpy as np
+
+# Annual returns for Asset A and Asset B
+returns_a = 0.10
+returns_b = 0.15
+
+# Annual volatilities (standard deviations) for Asset A and Asset B
+volatility_a = 0.20
+volatility_b = 0.30
+
+# Define a list of different weight combinations of asset A
+weight_combinations = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+
+# Initialize lists to store portfolio returns and volatilities
+portfolio_returns = []
+portfolio_volatilities = []
+
+# Calculate portfolio returns and volatilities for different weight combinations
+for w in weight_combinations:
+    # Calculate portfolio return as the weighted sum of individual asset returns
+    portfolio_return = w * returns_a + (1 - w) * returns_b
+    portfolio_returns.append(portfolio_return)
+
+    # Calculate portfolio volatility using the formula
+    portfolio_volatility = np.sqrt(w**2 * volatility_a**2 + (1 - w)**2 * volatility_b**2 + 2 * w * (1 - w) * volatility_a * volatility_b)
+    portfolio_volatilities.append(portfolio_volatility)
+
+# Print the calculated returns and volatilities for different weight combinations
+print("Weight | Portfolio Return | Portfolio Volatility")
+for i in range(len(weight_combinations)):
+    weight = weight_combinations[i]
+    return_percentage = portfolio_returns[i] * 100
+    volatility_percentage = portfolio_volatilities[i] * 100
+    print(f"{weight:.2f}   | {return_percentage:.2f}%          | {volatility_percentage:.2f}%")
+
+#Data Visualization 
+
+#Exercise 1
+
+import matplotlib.pyplot as plt
+
+# Given stock prices
+stock_prices = [105, 103, 106, 109, 108, 107, 110, 112, 111, 113]
+
+# Plot the stock prices using a line plot
+plt.plot(stock_prices)
+
+# Add title, x-axis label, and y-axis label
+plt.title('Stock Prices Over 10 Days')
+plt.xlabel('Days')
+plt.ylabel('Stock Price')
+
+# Display the plot
+plt.show()
+
+
+#Challenge
+
+import matplotlib.pyplot as plt
+
+# Given stock prices for stock 1 and stock 2
+stock_prices1 = [105, 103, 106, 109, 108, 107, 110, 112, 111, 113]
+stock_prices2 = [107, 108, 107, 107, 106, 108, 109, 108, 109, 110]
+
+# Plot both stocks on the same graph with different colors
+plt.plot(stock_prices1, label='Stock 1', color='blue')
+plt.plot(stock_prices2, label='Stock 2', color='green')
+
+# Add title, x-axis label, y-axis label, and legend
+plt.title('Stock Prices Over 10 Days')
+plt.xlabel('Days')
+plt.ylabel('Stock Price')
+plt.legend()
+
+# Display the plot
+plt.show()
+
+
+#Exercise 2
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Given stock returns
+returns = [0.05, -0.02, 0.03, -0.01, 0.02, 0.03, -0.03, 0.01, 0.04, -0.01]
+
+# Plot a histogram using Seaborn to visualize the distribution of returns
+sns.histplot(returns, bins=5, kde=True)
+
+# Add a title
+plt.title('Distribution of Stock Returns')
+
+# Display the plot
+plt.show()
+

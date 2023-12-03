@@ -1,0 +1,251 @@
+# EXERCISE 1
+
+def calculate_average(prices):
+    return sum(prices) / len(prices)
+
+# Given time series data
+dates = ["4th January", "5th January", "6th January"]
+stock_prices = [155, 156, 153]
+
+# Calculate the average stock price
+average_price = calculate_average(stock_prices)
+
+# Print the average stock price
+print(f"Average Stock Price: ${average_price:.2f}")
+
+
+#exercise 2
+
+# Define a function 
+def find_day_with_highest_price(dates, prices):
+    # Find the index of the maximum price using the built-in 'max' function
+    max_price_index = prices.index(max(prices))
+    
+    # Use the index to get the corresponding date from the 'dates' list
+    day_with_highest_price = dates[max_price_index]
+    
+    # Return the day with the highest stock price
+    return day_with_highest_price
+
+# Given time series data
+dates = ["4th January", "5th January", "6th January"]
+stock_prices = [155, 156, 153]
+
+# Call the function to find the day with the highest stock price
+day_with_highest_price = find_day_with_highest_price(dates, stock_prices)
+
+# Print the result
+print(f"Day with the Highest Stock Price: {day_with_highest_price}")
+
+
+#exercise 3
+
+def analyze_stock_trend(prices):
+    increasing = decreasing = stable = 0  # Initialize counters for increasing, decreasing, and stable days
+    
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i - 1]:
+            increasing += 1
+        elif prices[i] < prices[i - 1]:
+            decreasing += 1
+        else:
+            stable += 1
+    
+    if increasing > decreasing:
+        return "Generally Increasing"
+    elif decreasing > increasing:
+        return "Generally Decreasing"
+    else:
+        return "Remaining Stable"
+
+# Extended time series data
+dates = ["4th January", "5th January", "6th January", "7th January", "8th January"]
+stock_prices = [155, 156, 153, 157, 152]
+
+# Call the function to analyze the stock price trend
+trend = analyze_stock_trend(stock_prices)
+
+# Print the result
+print(f"Stock Price Trend: {trend}")
+
+
+#2.2 Exercise 1
+
+import statistics
+
+def calculate_volatility(prices):
+    return statistics.stdev(prices)
+
+# Given time series data
+dates = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+stock_prices = [150, 152, 151, 153, 152]
+
+# Call the function to calculate volatility
+volatility = calculate_volatility(stock_prices)
+
+# Print the result
+print(f"Volatility: ${volatility:.2f}")
+
+
+#exercise 2
+
+import statistics
+
+def calculate_average(prices):
+    return sum(prices) / len(prices)
+
+def highlight_above_average(prices, dates):
+    average_price = calculate_average(prices)
+    
+    for i in range(len(prices)):
+        if prices[i] > average_price:
+            print(f"{dates[i]} - Stock price is above average")
+
+# Given time series data
+dates = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+stock_prices = [150, 152, 151, 153, 152]
+
+# Calculate the average stock price
+average_price = calculate_average(stock_prices)
+
+# Call the function to highlight days above the average
+highlight_above_average(stock_prices, dates)
+
+# Print the average price
+print(f"Average Stock Price: ${average_price:.2f}")
+
+
+#exercise 3 : 
+
+def forecast_next_day_price(prices):
+   
+    # Calculate the average change in stock price
+    total_change = sum(prices[i] - prices[i-1] for i in range(1, len(prices)))
+    average_change = total_change / (len(prices) - 1)
+
+    # Forecast the next day's price
+    last_price = prices[-1] #position
+    forecasted_price = last_price + average_change
+
+    return forecasted_price
+
+# Given time series data
+dates = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+stock_prices = [150, 152, 151, 153, 152]
+
+# Call the function to forecast the next day's stock price
+forecasted_price = forecast_next_day_price(stock_prices)
+
+print(f"Forecasted Next Day's Stock Price: ${forecasted_price:.2f}")
+
+
+
+
+#time value of money 
+
+#exercise 1
+
+def present_value(fv, r, n):
+    return fv / (1 + r) ** n
+
+FV = 120
+r = 0.05
+n = 2
+PV = present_value(FV, r, n)
+print(f"The present value is: ${PV:.2f}")
+
+
+#exercise 2 
+
+FV = 500
+r = 0.06  # 6% expressed as a decimal
+n = 2
+
+PV = present_value(FV, r, n)
+print(f"The present value of $500 two years from now is: ${PV:.2f}")
+
+
+#exercise 3 
+
+FV = 1000
+r = 0.04  # 4% expressed as a decimal
+n = 5
+
+PV = present_value(FV, r, n)
+print(f"The present value of $1000 due 5 years from now is: ${PV:.2f}")
+
+
+# FV, Exercise 2
+def future_value(pv, r, n) : 
+    return pv*(1+r)**n
+
+PV = 200
+r = 0.03  # 3% expressed as a decimal
+n = 2
+
+FV = future_value(PV, r, n)
+print(f"The future value after 2 years is: ${FV:.2f}")
+
+
+#exercise 3
+
+PV = 150
+r = 0.05  # 5% expressed as a decimal
+n = 3
+
+FV = future_value(PV, r, n)
+print(f"The future value after 3 years is: ${FV:.2f}")
+
+
+#4.3
+
+def compound(pv, r):
+    return pv * (1 + r)
+
+# Exercise 2
+FV_2 = 115
+r_2 = 0.08  # 8% expressed as a decimal
+PV_2 = FV_2 / compound(1, r_2)
+print(f"Exercise 2: The present value of $115 one year from now is: ${PV_2:.2f}")
+
+# Exercise 3
+FV_3 = 500
+r_3 = 0.06  # 6% expressed as a decimal
+PV_3 = FV_3 / compound(1, r_3)**2
+print(f"Exercise 3: You need to invest today: ${PV_3:.2f}")
+
+# Exercise 4
+FV_4 = 180
+r_4 = 0.10  # 10% expressed as a decimal
+PV_4 = FV_4 / compound(1, r_4)**2
+print(f"Exercise 4: The value of the promise today is: ${PV_4:.2f}")
+
+# Exercise 5
+FV_5 = 1000
+r_5 = 0.07  # 7% expressed as a decimal
+PV_5 = FV_5 / compound(1, r_5)**3
+print(f"Exercise 5: You need to invest now: ${PV_5:.2f}")
+
+
+#4.4.2
+
+#EXERCISE 1
+
+import yfinance as yf 
+apple_data = yf.download("AAPL", start="2020-01-01", end="2023-01-01")
+print(apple_data.head())
+
+
+
+#4.4.3 times series data 
+
+#1 : plotting closing prices
+
+import matplotlib.pyplot as plt
+apple_data["Close"].plot(figsize=(10, 5))
+plt.title("Apple Stock Closing Prices")
+plt.ylabel("Price (in \$)")
+plt.xlabel("Date")
+plt.show()
+
+
